@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>The Internet of Production Alliance</title>
+    <link href="https://map.internetofproduction.org/feed.xml" rel="self" />
+    <link href="https://map.internetofproduction.org" />
+    <updated>2023-12-19T16:04:21-06:00</updated>
+    <author>
+        <name>Antonio de Jesus Anaya Hernandez</name>
+    </author>
+    <id>https://map.internetofproduction.org</id>
+
+    <entry>
+        <title>OKW WORLD MAP OF MANUFACTURING</title>
+        <author>
+            <name>Antonio de Jesus Anaya Hernandez</name>
+        </author>
+        <link href="https://map.internetofproduction.org/open-know-where-2/index.html"/>
+        <id>https://map.internetofproduction.org/open-know-where-2/index.html</id>
+
+        <updated>2023-12-19T16:04:21-06:00</updated>
+            <summary>
+                <![CDATA[
+                    REV 2.0, 19/12/2023 Author: DevOps at Internet of Production Alliance Author: Antonio de Jesus Anaya Hernandez CC BY-SA 4.0 2023, Internet of Production Alliance OKW&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <pre>REV 2.0, 19/12/2023<br>Author: DevOps at Internet of Production Alliance<br>Author: Antonio de Jesus Anaya Hernandez<br>CC BY-SA 4.0<br>2023, Internet of Production Alliance </pre>
+<h2><div class="post__iframe"><iframe loading="lazy" width="100%" height="50%" style="border-radius: 10px; border: 0px #ffffff none;" src="https://map.internetofproduction.org/world_map.html" name="myiFrame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></div></h2>
+<h2 id="okwmapping">OKW MAPPING</h2>
+<p><strong>What:</strong> This is a self submission tool for the OKW MAP project to survey and collect data on machines, facilities, people, and materials where distributed manufacturing happens.<br><br><strong>Who:</strong> This is intended to be answered by Makerspaces, FabLabs, and innovation hubs within the Alliance and its projects.<br><br><strong>Purpose:</strong> The Internet of Production Alliance collects the data to form a database of machines, facilities, people, and materials by location, to be analyzed and mapped for the Open-Know-Where initiative.</p>
+<h2 id="aboutdata">ABOUT DATA</h2>
+<p>The data collected is processed only by the DevOps office. For data privacy concerns and requests contact by email to: <a href="mailto:antonio.anaya@internetofproduction.org">antonio.anaya@internetofproduction.org</a></p>
+<h3 id="updateorremoval">UPDATE, OR REMOVAL</h3>
+<p>Please send an email to: <a href="mailto:antonio.anaya@internetofproduction.org">antonio.anaya@internetofproduction.org</a> with the following:</p>
+<ol>
+<li>Subject: data [update] or [removal] required</li>
+<li>Body: Name, location (city) of the record.</li>
+<li>Part: Applies only to a part of the information like ie. email, address.</li>
+<li>Complete: Applies to the whole record, for this send the record data using the form below and send the record to be replaced. ie. Previous record xx, xx, xx, xx, and New record. yy, yy, yy, yy.</li>
+</ol>
+<h3 id="expiration">EXPIRATION</h3>
+<p>36 months from the date of publicly available data, expected on 2024/01 TBA.</p>
+<h3 id="gdpr">GDPR</h3>
+<p>Our data policy is found in:<a href="https://map.internetofproduction.org/okw_map_data_policy.html">https://map.internetofproduction.org/okw_map_data_policy.html</a></p>
+<h2 id="datasubmission">DATA SUBMISSION</h2>
+<p class="msg msg--success">At The Internet of Production Alliance, we are grateful for the time and effort of your contributions to this data collection exercise.</p>
+<ol>
+<li>Add your Facility using the "Add facility" form below. If your facility is already added on the map be aware of that we still need to update your information.</li>
+<li>Give us some feedback any step during the data filling process.</li>
+</ol>
+<p class="msg--highlight msg--success msg msg--info">Once we have your information, we will validate and show your data in the map.</p>
+<h3 id="forms">FORMS</h3>
+<p><a href="https://airtable.com/shrwH1gxqOT5aA4mN" target="_blank" rel="noopener noreferrer" class="btn btn--green">Add Facility</a></p>
+<h2 id="howtoaddmaptoyourpage">HOW TO ADD THE OKW MAP TO YOUR PAGE</h2>
+<ol>
+<li>While editing your page's source code, copy&amp;paste this "iframe" inside a "div" element.</li>
+</ol>
+<pre><code>&lt;iframe width="100%" height="50%" style="border-radius: 10px; border: 0px #ffffff none;" src="https://map.internetofproduction.org/world_map.html" name="myiFrame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen="allowfullscreen"&gt;&lt;/iframe&gt;</code></pre>
+<p class="msg msg--info">In the next version of the map generator you will be able to:</p>
+<ul>
+<li>Use different sources of information and select them.</li>
+<li>Parse the data by country, organization, type of machines and projects.</li>
+</ul>
+<p class="msg msg--highlight"><a href="https://airtable.com/shr6jR0EIZkfRdrFA" target="_blank" rel="noopener noreferrer">Let us know if you have any feedback.</a></p>
+<p>2023, The Internet of Production Alliance.</p>
+            ]]>
+        </content>
+    </entry>
+</feed>
