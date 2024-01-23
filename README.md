@@ -6,26 +6,29 @@ This repository contains Jupyter notebooks designed for the collection and analy
 Installation Instructions
 
 To run the Jupyter notebooks locally, follow these simple steps:
-Prerequisites
 
-Python:
+### Prerequisites
+
+. Python:
 Ensure you have Python installed on your machine. You can download it from python.org.
 
-Jupyter Notebooks:
+. Jupyter Notebooks:
 Install Jupyter Notebooks using the following command in your terminal or command prompt:
 
 ```bash
 
-pip install notebook```
+pip install notebook
+```
 
-Cloning the Repository
+### Cloning the Repository
 
 Clone the Repository:
 Open your terminal or command prompt and navigate to the desired directory. Then, clone the repository using:
 
 ```bash
 
-git clone https://github.com/iop-alliance/okw_data_management.git```
+git clone https://github.com/iop-alliance/okw_data_management.git
+```
 
 Navigate to the Repository:
 
@@ -33,16 +36,18 @@ Move into the repository directory:
 
 ```bash
 
-cd okw_data_management```
+cd okw_data_management
+```
 
-Running Jupyter Notebooks
+### Running Jupyter Notebooks
 
 Launch Jupyter:
 Start the Jupyter Notebook server by running the following command:
 
 ```bash
 
-jupyter notebook```
+jupyter notebook
+```
 
 Access Notebooks:
 Once the server is running, open your web browser and go to http://localhost:8888. You will see the Jupyter file browser.
@@ -53,7 +58,7 @@ Navigate to the "notebooks" directory and open the desired notebook (e.g., data_
 Run the Notebook:
 Run the notebook cells one by one to execute the code.
 
-Additional Notes
+### Additional Notes
 
 Make sure to read any specific instructions or dependencies mentioned within individual notebooks.
 
@@ -65,6 +70,7 @@ docs/: Store documents associated with the notebooks.
 
 Feel free to explore, experiment, and contribute to enhance the capabilities of machinery and facilities data collection!
 
+### Licensing
 License: CCBY4.0 Creative Commons 2024,
 Author: Antonio de Jesus Anaya Hernandez, DevOps Eng.
 Author: The Internet of Production Alliance
