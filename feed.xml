@@ -3,7 +3,7 @@
     <title>OKW MAP</title>
     <link href="https://map.internetofproduction.org/feed.xml" rel="self" />
     <link href="https://map.internetofproduction.org" />
-    <updated>2023-12-20T03:02:26-06:00</updated>
+    <updated>2024-01-23T22:16:30-06:00</updated>
     <author>
         <name>Antonio de Jesus Anaya Hernandez</name>
     </author>
@@ -33,17 +33,17 @@
         <link href="https://map.internetofproduction.org/data-privacy-policy/index.html"/>
         <id>https://map.internetofproduction.org/data-privacy-policy/index.html</id>
 
-        <updated>2023-12-19T19:42:04-06:00</updated>
+        <updated>2023-12-21T07:13:15-06:00</updated>
             <summary>
                 <![CDATA[
-                    PRIVACY NOTICE Last updated 14/12/2023 This privacy notice for https://www.internetofproduction.org ('we', 'us', or 'our'), describes how and why we might collect, store, use, and/or share&hellip;
+                    PRIVACY NOTICE Last updated 14/12/2023 This privacy notice for https://map.internetofproduction.org ('we', 'us', or 'our'), describes how and why we might collect, store, use, and/or share&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
                 <h1 data-renderer-start-pos="20">PRIVACY NOTICE</h1>
 <p data-renderer-start-pos="36">Last updated 14/12/2023</p>
-<p data-renderer-start-pos="61">This privacy notice for <a href="https://www.internetofproduction.org" target="_blank" rel="nofollow noopener noreferrer">https://www.internetofproduction.org</a> ('we', 'us', or 'our'), describes how and why we might collect, store, use, and/or share ('process') your information when you use our services ('Services'), such as when you:<br>• Visit our website at <a href="https://map.internetofproduction.org/data-privacy-policy/index.html" title="https://map.internetofproduction.org," target="_blank" rel="nofollow noopener noreferrer">https://map.internetofproduction.org/data-privacy-policy/index.html</a> or any website of ours that links to this privacy notice<br>• Download and use our mobile application (Internet of Production Map of Machinery), or any other application of ours that links to this privacy notice<br>• Engage with us in other related ways, including any sales, marketing, or events</p>
+<p data-renderer-start-pos="61">This privacy notice for <a href="https://www.internetofproduction.org" target="_blank" rel="nofollow noopener noreferrer">https://map.internetofproduction.org</a> ('we', 'us', or 'our'), describes how and why we might collect, store, use, and/or share ('process') your information when you use our services ('Services'), such as when you:<br>• Visit our website at <a href="https://map.internetofproduction.org/data-privacy-policy/index.html" title="https://map.internetofproduction.org," target="_blank" rel="nofollow noopener noreferrer">https://map.internetofproduction.org/data-privacy-policy/index.html</a> or any website of ours that links to this privacy notice<br>• Download and use our mobile application (Internet of Production Map of Machinery), or any other application of ours that links to this privacy notice<br>• Engage with us in other related ways, including any sales, marketing, or events</p>
 <p data-renderer-start-pos="638">Questions or concerns? Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services.</p>
 <h2 data-renderer-start-pos="833">SUMMARY OF KEY POINTS</h2>
 <p data-renderer-start-pos="856">This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for.</p>
@@ -241,33 +241,41 @@
         </content>
     </entry>
     <entry>
-        <title>OKW WORLD MAP OF MANUFACTURING</title>
+        <title>OKW MAP OF MANUFACTURING</title>
         <author>
             <name>Antonio de Jesus Anaya Hernandez</name>
         </author>
         <link href="https://map.internetofproduction.org/open-know-where-2/index.html"/>
         <id>https://map.internetofproduction.org/open-know-where-2/index.html</id>
 
-        <updated>2023-12-20T03:02:26-06:00</updated>
+        <updated>2024-01-23T22:16:30-06:00</updated>
             <summary>
                 <![CDATA[
-                    REV 2.0, 19/12/2023 Author: Antonio de Jesus Anaya Hernandez, DevOps Eng. CC BY-SA 4.0 2023, Internet of Production Alliance GLOBAL MAKE IMA OKW MAPPING What:&hellip;
+                    REV 2.1, 23/01/2024 Author: Antonio de Jesus Anaya Hernandez, DevOps Eng. CC BY-SA 4.0 2023-2024, The Internet of Production Alliance. Introduction What: This is the&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                <pre>REV 2.0, 19/12/2023<br>Author: Antonio de Jesus Anaya Hernandez, DevOps Eng. <br>CC BY-SA 4.0<br>2023, Internet of Production Alliance </pre>
-<h2>GLOBAL<br><div class="post__iframe"><iframe loading="lazy" width="100%" height="50%" style="border-radius: 10px; border: 0px #ffffff none;" src="https://map.internetofproduction.org/world_map.html" name="myiFrame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></div></h2>
-<h2>MAKE</h2>
-<div class="post__iframe"><iframe loading="lazy" width="100%" height="50%" style="border-radius: 10px; border: 0px #ffffff none;" src="https://map.internetofproduction.org/makeafricaeu.html" name="myiFrame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen="allowfullscreen"></iframe></div>
-<h2>IMA</h2>
-<div class="post__iframe"><iframe loading="lazy" width="100%" height="50%" style="border-radius: 10px; border: 0px #ffffff none;" src="https://map.internetofproduction.org/ima.html" name="myiFrame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen="allowfullscreen"></iframe></div>
-<h2 id="okwmapping">OKW MAPPING</h2>
-<p><strong>What:</strong> This is a self submission tool for the OKW MAP project to survey and collect data on machines, facilities, people, and materials where distributed manufacturing happens.<br><br><strong>Who:</strong> This is intended to be answered by Makerspaces, FabLabs, and innovation hubs within the Alliance and its projects.<br><br><strong>Purpose:</strong> The Internet of Production Alliance collects the data to form a database of machines, facilities, people, and materials by location, to be analyzed and mapped for the Open-Know-Where initiative.</p>
-<p><strong>Data Processing:</strong> The data collected is processed only by the DevOps office. </p>
-<p><strong>Data expiration:</strong> 36 months from the date of publicly available data, expected on 2024/01 TBA.</p>
+                <pre>REV 2.1, 23/01/2024<br>Author: Antonio de Jesus Anaya Hernandez, DevOps Eng. <br>CC BY-SA 4.0<br>2023-2024, The Internet of Production Alliance. </pre>
+<h2 id="okwmapping">Introduction</h2>
+<p><strong>What:</strong> This is the front page of the <strong>Open-Know-Where Map of Manufacturing</strong> project to survey and collect data on machines, facilities, people, and materials enabling distributed manufacturing.<br><br><strong>Who:</strong> This is intended to be use by Makers and organisations around Maker-spaces, Fab-Labs, and innovation hubs within the Internet of Production Alliance and its projects.<br><br><strong>Purpose:</strong> The Internet of Production Alliance collects the data to form a database of machines, facilities, people, and materials by location, to be analysed and mapped for the Open-Know-Where initiative.</p>
+<p><strong>Data Processing:</strong> The data collected is processed by the DevOps office of the Internet of Production Alliance. </p>
+<p><strong>Data expiration:</strong> Data would be re-validated or discarded after 36 months from the initial date of data publishing, expected on 2024/02 TBA. </p>
 <p>Our data policy is found at <a href="https://map.internetofproduction.org/data-privacy-policy/index.html" target="_blank" rel="nofollow noopener noreferrer">https://map.internetofproduction.org/data-privacy-policy/index.html</a></p>
 <p>For any map related concerns and requests contact by email to: <a href="mailto:antonio.anaya@internetofproduction.org">antonio.anaya@internetofproduction.org</a></p>
+<h2>MAPS</h2>
+<h3>GLOBAL<br><div class="post__iframe"><iframe loading="lazy" width="100%" height="50%" style="border-radius: 10px; border: 0px #ffffff none;" src="https://map.internetofproduction.org/world_map.html" name="myiFrame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen="allowfullscreen" data-mce-fragment="1"></iframe></div></h3>
+<h3>MAKE</h3>
+<div class="post__iframe"><iframe loading="lazy" width="100%" height="50%" style="border-radius: 10px; border: 0px #ffffff none;" src="https://map.internetofproduction.org/makeafricaeu.html" name="myiFrame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen="allowfullscreen"></iframe></div>
+<h3>IMA</h3>
+<div class="post__iframe"><iframe loading="lazy" width="100%" height="50%" style="border-radius: 10px; border: 0px #ffffff none;" src="https://map.internetofproduction.org/ima.html" name="myiFrame" scrolling="no" frameborder="0" marginheight="0px" marginwidth="0px" allowfullscreen="allowfullscreen"></iframe></div>
+<p> </p>
+<h2>DATASETS AND RECORDS</h2>
+<h3>COLLECTION</h3>
+<p>A GIT repository containing Jupyter notebooks designed for the collection and analysis of machinery and facilities data its available at: <br><a href="https://github.com/iop-alliance/okw_data_management">https://github.com/iop-alliance/okw_data_management</a>.</p>
+<p>The notebooks cover a range of topics, including data acquisition processes, machinery cataloguing, and data management.</p>
+<h3>PUBLICLY AVAILABLE SOURCES</h3>
+<p>Data in compliance with privacy regulations is available for usage and citation at: <a href="https://zenodo.org/communities/iopa">https://zenodo.org/communities/iopa</a></p>
 <h3 id="updateorremoval">UPDATE, OR REMOVAL</h3>
 <p>Please send an email to: <a href="mailto:antonio.anaya@internetofproduction.org">antonio.anaya@internetofproduction.org</a> with the following:</p>
 <ol>
@@ -276,7 +284,7 @@
 <li>Part: Applies only to a part of the information like ie. email, address.</li>
 <li>Complete: Applies to the whole record, for this send the record data using the form below and send the record to be replaced. ie. Previous record xx, xx, xx, xx, and New record. yy, yy, yy, yy.</li>
 </ol>
-<h2 id="datasubmission">DATA SUBMISSION</h2>
+<h3 id="datasubmission">SUBMISSION</h3>
 <p class="msg msg--success">At The Internet of Production Alliance, we are grateful for the time and effort of your contributions to this data collection exercise.</p>
 <ol>
 <li>Add your Facility using the "Add facility" form below. If your facility is already added on the map be aware of that we still need to update your information.</li>
@@ -284,15 +292,16 @@
 </ol>
 <p class="msg--highlight msg--success msg msg--info">Once we have your information, we will validate and show your data in the map.</p>
 <h3 id="forms">FORMS</h3>
-<p>A Kobo ToolBox survey is setup for data collection. With the following characteristics:</p>
+<p>A KoboToolBox survey is setup for data collection. With the following characteristics:</p>
 <ol>
 <li>Offline data submission is possible using the Kobo Collect tool.</li>
 <li>The survey includes a MACHINE INVENTORY apart with the catalogue of machines collected by different databases and vendors.</li>
 <li>For adding a capability to a facility at least one machine addition is required.</li>
 <li>Agreements for contact information are required in compliance with GDPR regulations and other data privacy regulations.</li>
 </ol>
-<p><a href="https://enketo.unhcr.org/x/gn0IrHmt" target="_blank" rel="nofollow noopener noreferrer" class="btn btn--green">Add Facility</a></p>
-<h2 id="howtoaddmaptoyourpage">HOW TO ADD THE OKW MAP TO YOUR PAGE</h2>
+<p><a href="https://map.internetofproduction.org/data-submission/index.html" target="_blank" rel="nofollow noopener noreferrer" class="btn btn--green">Add Facility and machinery.</a></p>
+<h2>USAGE</h2>
+<h3 id="howtoaddmaptoyourpage">HOW TO ADD THE OKW MAP TO YOUR PAGE</h3>
 <ol>
 <li>While editing your page's source code, copy&amp;paste this "iframe" inside a "div" element.</li>
 </ol>
