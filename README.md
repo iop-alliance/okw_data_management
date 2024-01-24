@@ -2,8 +2,9 @@
 
 [The Open-Know-Where map of facilitites and machinery](https://map.internetofproduction.org/) is a map of facilities developed by the Internet of Production Alliance [IOPA](http://internetofproduction.org/).
 
-This repository contains Jupyter notebooks designed for the collection and analysis of machinery and facilities data. The notebooks cover a range of topics, including data acquisition processes, machinery cataloging, and map visualization. These resources aim to provide comprehensive insights into the status and usability of machinery and facilities within a given context.
-Installation Instructions
+This repository contains Jupyter notebooks designed for the collection and analysis of machinery and facilities data. The notebooks cover a range of topics, including data acquisition processes, machinery cataloging, and map visualization. These resources aim to provide comprehensive insights into the status and usability of machinery and facilities enabling distributed manufacturing.
+
+### Installation Instructions
 
 To run the Jupyter notebooks locally, follow these simple steps:
 
@@ -55,7 +56,7 @@ Once the server is running, open your web browser and go to http://localhost:888
 Select a Notebook:
 Navigate to the "notebooks" directory and open the desired notebook (e.g., data_count.ipynb).
 
-Run the Notebook:
+### Run the Notebook:
 Run the notebook cells one by one to execute the code.
 
 ### Additional Notes
