@@ -1,6 +1,6 @@
-# [Open-Know-Where map of facilitites and machinery - Data Management Repository](https://map.internetofproduction.org/)
+# [Open-Know-Where map of facilities and machinery - Data Management Repository](https://map.internetofproduction.org/)
 
-[The Open-Know-Where map of facilitites and machinery](https://map.internetofproduction.org/) is a map of facilities developed by the Internet of Production Alliance [IOPA](http://internetofproduction.org/).
+[The Open-Know-Where map of facilities and machinery](https://map.internetofproduction.org/) is a map of facilities developed by the Internet of Production Alliance [IOPA](http://internetofproduction.org/).
 
 This repository contains Jupyter notebooks designed for the collection and analysis of machinery and facilities data. The notebooks cover a range of topics, including data acquisition processes, machinery cataloging, and map visualization. These resources aim to provide comprehensive insights into the status and usability of machinery and facilities enabling distributed manufacturing.
 
@@ -10,11 +10,8 @@ To run the Jupyter notebooks locally, follow these simple steps:
 
 ### Prerequisites
 
-. Python:
-Ensure you have Python installed on your machine. You can download it from python.org.
-
-. Jupyter Notebooks:
-Install Jupyter Notebooks using the following command in your terminal or command prompt:
+- Python: Ensure you have Python installed on your machine. You can download it from [python.org](https://www.python.org/downloads/).
+- Jupyter Notebooks: Install Jupyter Notebooks using the following command in your terminal or command prompt:
 
 ```bash
 
@@ -72,6 +69,7 @@ docs/: Store documents associated with the notebooks.
 Feel free to explore, experiment, and contribute to enhance the capabilities of machinery and facilities data collection!
 
 ### Licensing
-License: CCBY4.0 Creative Commons 2024,
-Author: Antonio de Jesus Anaya Hernandez, DevOps Eng.
-Author: The Internet of Production Alliance
+
+- **License:** [CCBY4.0 Creative Commons 2024](https://creativecommons.org/licenses/by/4.0/)
+- **Author:** Antonio de Jesus Anaya Hernandez, DevOps Engineer.
+- **Author:** The Internet of Production Alliance
