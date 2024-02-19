@@ -11,6 +11,20 @@
     },
     "items": [
         {
+            "id": "https://map.internetofproduction.org/okw-charter/index.html",
+            "url": "https://map.internetofproduction.org/okw-charter/index.html",
+            "title": "Open-Know-Where (OKW) Charter",
+            "summary": "Vision Open-Know-Where (OKW) aspires to be the global platform that empowers individuals and organizations in the maker and manufacturing ecosystem by providing accessible, comprehensive, and&hellip;",
+            "content_html": "<h2>Vision</h2>\n<p>Open-Know-Where (OKW) aspires to be the global platform that empowers individuals and organizations in the maker and manufacturing ecosystem by providing accessible, comprehensive, and contextually relevant data.</p>\n<h2>Mission</h2>\n<p>Our mission is to democratize knowledge, foster collaboration, and catalyze innovation in the maker community by curating and sharing data about locations, resources, and projects.</p>\n<h2>Principles</h2>\n<h3>1. Openness</h3>\n<p>OKW is committed to being an open platform. Data contributed to OKW is encouraged to be open and accessible to the community, promoting transparency and shared knowledge.</p>\n<h3>2. Inclusivity</h3>\n<p>We embrace diversity and strive to be inclusive. OKW is a platform for all makers, regardless of their background, location, or expertise. We encourage the participation of individuals and organizations worldwide.</p>\n<h3>3. Privacy and Security</h3>\n<p>OKW respects the privacy and security of its users. We are committed to implementing robust measures to protect the personal and sensitive information shared on the platform.</p>\n<h3>4. Collaboration</h3>\n<p>Collaboration is at the core of OKW. We encourage partnerships, discussions, and initiatives that contribute to the growth and sustainability of the maker ecosystem.</p>\n<h3>5. Community-Driven</h3>\n<p>OKW is a community-driven platform. Input from the community is highly valued, and decisions regarding the platform's development and features are made collectively.</p>\n<h2>Guidelines</h2>\n<h3>1. Data Integrity</h3>\n<p>Contributors are encouraged to provide accurate and up-to-date information. OKW relies on the integrity of its data to be a valuable resource for the community.</p>\n<h3>2. Respect</h3>\n<p>Users are expected to treat each other with respect and courtesy. OKW is a space for constructive conversations and shared learning.</p>\n<h3>3. Attribution</h3>\n<p>Users contributing data to OKW retain ownership of their contributions. Proper attribution is given to contributors, and their intellectual property rights are respected.</p>\n<h3>4. Continuous Improvement</h3>\n<p>OKW is committed to continuous improvement. We actively seek feedback from the community to enhance the platform's functionality and user experience.</p>\n<h2>Governance</h2>\n<p>The governance of OKW involves an open and transparent decision-making process. Major decisions, changes to guidelines, and the appointment of key roles are discussed and decided upon collectively by the community.</p>\n<h2>Conclusion</h2>\n<p>Open-Know-Where is a community-driven initiative with a vision to strengthen the global maker community. By adhering to these principles and guidelines, we aim to create a collaborative and empowering platform for makers worldwide.</p>",
+            "author": {
+                "name": "Antonio de Jesus Anaya Hernandez"
+            },
+            "tags": [
+            ],
+            "date_published": "2024-02-19T06:06:07-06:00",
+            "date_modified": "2024-02-19T06:08:48-06:00"
+        },
+        {
             "id": "https://map.internetofproduction.org/data-submission/index.html",
             "url": "https://map.internetofproduction.org/data-submission/index.html",
             "title": "DATA SUBMISSION",
@@ -49,7 +63,7 @@
             "tags": [
             ],
             "date_published": "2023-05-15T11:43:06-06:00",
-            "date_modified": "2024-01-23T22:16:30-06:00"
+            "date_modified": "2024-01-25T08:59:20-06:00"
         }
     ]
 }
