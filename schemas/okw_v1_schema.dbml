@@ -1,0 +1,106 @@
+// Open-Know-Where Initiative Distributed Resources Data Schema
+// Schema for managing distributed resources data.
+// Author: The Internet of Production Alliance
+// Author: Antonio de Jesus Anaya Hernandez
+// License: CC BY-SA 4.0
+// 2024, The Internet of Production Alliance.
+// https://map.internetofproduction.org
+// https://github.com/iop-alliance
+
+Table Address {
+  address_id        int [unique, primary key]
+  street            string                // DCMI: Coverage
+  number            string
+  locality          string                // DCMI: Coverage
+  region            string                // DCMI: Coverage
+  postcode          integer
+  country           string                // DCMI: Coverage
+  latitude          float                 // KML
+  longitude         float                 // KML
+}
+
+Table Contact {
+  contact_id        int [unique, primary key]
+  social            string
+  email             string                // DCMI: Contributor
+  website           string                // DCMI: Contributor
+}
+
+Table DatabaseSourceMetadata {
+  source_id         int [unique, primary key]
+  name              string                // Name or identifier of the database source
+  description       string                // Description of the database source
+  source_type       string                // Type of the database source (e.g., CSV, API, Database)
+  source_url        string                // URL or location of the source (if applicable)
+  license           string                // License information (e.g., CC-BY)
+  version           string                // Version of the database source
+  creation_date     datetime              // Date when the source was created
+  update_date       datetime              // Date of the last update
+  keywords          string                // Keywords or tags describing the source
+  publisher         string                // Publisher of the source
+  contributor       string                // Contributor of the source
+  language          string                // Language of the source
+}
+
+Table DistributedResource {
+  resource_id       int [unique, primary key]
+  address_id        int [ref: > Address.address_id]
+  contact_id        int [ref: > Contact.contact_id]
+  verification      bool
+  verificator_id    int [ref: > DataVerificator.verificator_id] // Reference to data verificator
+  source_id         int [ref: > DatabaseSourceMetadata.source_id] // Reference to source metadata
+}
+
+Table DataVerificator {
+  verificator_id    int [unique, primary key]
+  name              string
+  description       string
+  contact_id        int [ref: > Contact.contact_id]
+  address_id        int [ref: > Address.address_id]
+}
+
+Table ManufacturingFacility {
+  facility_id       int [unique, primary key]
+  resource_id       int [ref: > DistributedResource.resource_id]
+  name              string
+  description       string
+  type              string
+  capacity          int
+  capabilities      string
+  source_id         int [ref: > DatabaseSourceMetadata.source_id] // Reference to source metadata
+}
+
+Table ManufacturingEquipment {
+  equipment_id      int [unique, primary key]
+  resource_id       int [ref: > DistributedResource.resource_id]
+  brand             string
+  model             string
+  type              string
+  description       string
+  source_id         int [ref: > DatabaseSourceMetadata.source_id] // Reference to source metadata
+}
+
+Table ManufacturingService {
+  service_id        int [unique, primary key]
+  resource_id       int [ref: > DistributedResource.resource_id]
+  type              string
+  description       string
+  source_id         int [ref: > DatabaseSourceMetadata.source_id] // Reference to source metadata
+}
+
+Table ManufacturingSkill {
+  skill_id          int [unique, primary key]
+  resource_id       int [ref: > DistributedResource.resource_id]
+  name              string
+  bio               string
+  skills            string
+  source_id         int [ref: > DatabaseSourceMetadata.source_id] // Reference to source metadata
+}
+
+Table FindableProject {
+  project_id        int [unique, primary key]
+  resource_id       int [ref: > DistributedResource.resource_id]
+  name              string
+  description       string
+  source_id         int [ref: > DatabaseSourceMetadata.source_id] // Reference to source metadata
+}

@@ -1,0 +1,83 @@
+openapi: 3.0.0
+info:
+  title: Open-Know-Where API
+  description: API for accessing validated locations by country and other formats
+  version: 1.0.0
+servers:
+  - url: https://map.internetofproduction.org/api/v1
+paths:
+  /locations/{country}:
+    get:
+      summary: Get validated locations by country
+      description: Retrieve validated locations for a specific country in JSON format.
+      parameters:
+        - in: path
+          name: country
+          description: ISO 3166-1 alpha-2 country code (e.g., es for Spain)
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: type
+          description: Type of locations to retrieve
+          required: true
+          schema:
+            type: string
+            enum: [validated]
+        - in: query
+          name: format
+          description: Format of the response (json, html)
+          required: false
+          schema:
+            type: string
+            enum: [json, html]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+            text/html:
+              schema:
+                type: string
+                example: '<html><body><div id="map" style="width: 100%; height: 400px;"></div><script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script><script>var map = L.map("map").setView([51.505, -0.09], 13); L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors" }).addTo(map);</script></body></html>'
+    parameters:
+      Location:
+        type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          latitude:
+            type: number
+          longitude:
+            type: number
+          address:
+            type: string
+          city:
+            type: string
+          country:
+            type: string
+components:
+  schemas:
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
