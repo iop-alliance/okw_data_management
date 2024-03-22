@@ -1,0 +1,61 @@
+@prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix ex: <http://example.org/> .
+
+# Define the table class
+ex:DatabaseSourceMetadata a wikibase:Class ;
+    rdfs:label "Database Source Metadata" .
+
+# Define properties and their mappings to Wikidata
+ex:source_id a wikibase:Property ;
+    rdfs:label "source ID" ;
+    wikibase:directClaim wdt:P1234 .  # Replace P1234 with the appropriate Wikidata property ID for source ID.
+
+ex:name a wikibase:Property ;
+    rdfs:label "name" ;
+    wikibase:directClaim wdt:P5678 .  # Replace P5678 with the appropriate Wikidata property ID for name.
+
+ex:description a wikibase:Property ;
+    rdfs:label "description" ;
+    wikibase:directClaim wdt:P9012 .  # Replace P9012 with the appropriate Wikidata property ID for description.
+
+ex:source_type a wikibase:Property ;
+    rdfs:label "source type" ;
+    wikibase:directClaim wdt:P3456 .  # Replace P3456 with the appropriate Wikidata property ID for source type.
+
+ex:source_url a wikibase:Property ;
+    rdfs:label "source URL" ;
+    wikibase:directClaim wdt:P7890 .  # Replace P7890 with the appropriate Wikidata property ID for source URL.
+
+ex:license a wikibase:Property ;
+    rdfs:label "license" ;
+    wikibase:directClaim wdt:P2345 .  # Replace P2345 with the appropriate Wikidata property ID for license.
+
+ex:version a wikibase:Property ;
+    rdfs:label "version" ;
+    wikibase:directClaim wdt:P6789 .  # Replace P6789 with the appropriate Wikidata property ID for version.
+
+ex:creation_date a wikibase:Property ;
+    rdfs:label "creation date" ;
+    wikibase:directClaim wdt:P4567 .  # Replace P4567 with the appropriate Wikidata property ID for creation date.
+
+ex:update_date a wikibase:Property ;
+    rdfs:label "update date" ;
+    wikibase:directClaim wdt:P7891 .  # Replace P7891 with the appropriate Wikidata property ID for update date.
+
+ex:keywords a wikibase:Property ;
+    rdfs:label "keywords" ;
+    wikibase:directClaim wdt:P5678 .  # Replace P5678 with the appropriate Wikidata property ID for keywords.
+
+ex:publisher a wikibase:Property ;
+    rdfs:label "publisher" ;
+    wikibase:directClaim wdt:P1234 .  # Replace P1234 with the appropriate Wikidata property ID for publisher.
+
+ex:contributor a wikibase:Property ;
+    rdfs:label "contributor" ;
+    wikibase:directClaim wdt:P9012 .  # Replace P9012 with the appropriate Wikidata property ID for contributor.
+
+ex:language a wikibase:Property ;
+    rdfs:label "language" ;
+    wikibase:directClaim wdt:P3456 .  # Replace P3456 with the appropriate Wikidata property ID for language.
