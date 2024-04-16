@@ -3,35 +3,555 @@
     <title>Open-Know-Where Initiative Mapping and Data</title>
     <link href="https://map.internetofproduction.org/feed.xml" rel="self" />
     <link href="https://map.internetofproduction.org" />
-    <updated>2024-04-16T02:27:43-06:00</updated>
+    <updated>2024-04-16T02:41:00-06:00</updated>
     <author>
         <name>Antonio de Jesus Anaya Hernandez</name>
     </author>
     <id>https://map.internetofproduction.org</id>
 
     <entry>
-        <title>PROOF OF CONCEPT</title>
+        <title>DATA SCHEMA SPECIFICATION</title>
         <author>
             <name>Antonio de Jesus Anaya Hernandez</name>
         </author>
-        <link href="https://map.internetofproduction.org/proof-of-concept/index.html"/>
-        <id>https://map.internetofproduction.org/proof-of-concept/index.html</id>
+        <link href="https://map.internetofproduction.org/data-schema-design-choices/index.html"/>
+        <id>https://map.internetofproduction.org/data-schema-design-choices/index.html</id>
 
-        <updated>2024-04-11T05:57:36-06:00</updated>
-            <summary></summary>
-        <content></content>
-    </entry>
-    <entry>
-        <title>WORKING GROUP</title>
-        <author>
-            <name>Antonio de Jesus Anaya Hernandez</name>
-        </author>
-        <link href="https://map.internetofproduction.org/working-group/index.html"/>
-        <id>https://map.internetofproduction.org/working-group/index.html</id>
-
-        <updated>2024-04-11T05:57:22-06:00</updated>
-            <summary></summary>
-        <content></content>
+        <updated>2024-04-06T12:24:09-06:00</updated>
+            <summary>
+                <![CDATA[
+                    Open-Know-Where Initiative Distributed Resources Data Schema Introduction The Open-Know-Where Initiative Distributed Resources Data Schema is designed to manage information about distributed resources, such as manufacturing&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <div class="markdown-heading" dir="auto">
+<h1 class="heading-element" dir="auto" tabindex="-1">Open-Know-Where Initiative Distributed Resources Data Schema</h1>
+<a id="user-content-open-know-where-initiative-distributed-resources-data-schema" class="anchor" aria-label="Permalink: Open-Know-Where Initiative Distributed Resources Data Schema" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#open-know-where-initiative-distributed-resources-data-schema"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<div class="markdown-heading" dir="auto">
+<h2 class="heading-element" dir="auto" tabindex="-1">Introduction</h2>
+<a id="user-content-introduction" class="anchor" aria-label="Permalink: Introduction" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#introduction"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">The Open-Know-Where Initiative Distributed Resources Data Schema is designed to manage information about distributed resources, such as manufacturing facilities, equipment, services, and skills. This schema provides a structured format for storing and organizing data related to these resources, enabling efficient management and analysis.</p>
+<div class="markdown-heading" dir="auto">
+<h2 class="heading-element" dir="auto" tabindex="-1">Attributions</h2>
+<a id="user-content-attributions" class="anchor" aria-label="Permalink: Attributions" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#attributions"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<ul dir="auto">
+<li><strong>Authors:</strong> The Internet of Production Alliance, Antonio de Jesus Anaya Hernandez</li>
+<li><strong>Year:</strong> 2024</li>
+<li><strong>Publisher:</strong> The Internet of Production Alliance</li>
+<li><strong>Sources:</strong>
+<ul dir="auto">
+<li><a href="https://map.internetofproduction.org" rel="nofollow">Official Website</a></li>
+<li><a href="https://github.com/iop-alliance">GitHub Repository</a></li>
+</ul>
+</li>
+</ul>
+<div class="markdown-heading" dir="auto">
+<h2 class="heading-element" dir="auto" tabindex="-1">License</h2>
+<a id="user-content-license" class="anchor" aria-label="Permalink: License" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#license"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">This schema is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="nofollow">CC BY-SA 4.0</a>. You are free to share and adapt the schema for any purpose under the condition that you give appropriate credit to the authors and distribute any derivative works under the same license.</p>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: Address</h3>
+<a id="user-content-table-address" class="anchor" aria-label="Permalink: Table: Address" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-address"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores information about addresses.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>address_id</td>
+<td>int</td>
+<td>Unique identifier for the address</td>
+</tr>
+<tr>
+<td>street</td>
+<td>string</td>
+<td>Street name</td>
+</tr>
+<tr>
+<td>number</td>
+<td>string</td>
+<td>House or building number</td>
+</tr>
+<tr>
+<td>locality</td>
+<td>string</td>
+<td>Locality or district</td>
+</tr>
+<tr>
+<td>region</td>
+<td>string</td>
+<td>Region or state</td>
+</tr>
+<tr>
+<td>postcode</td>
+<td>integer</td>
+<td>Postal code</td>
+</tr>
+<tr>
+<td>country</td>
+<td>string</td>
+<td>Country</td>
+</tr>
+<tr>
+<td>latitude</td>
+<td>float</td>
+<td>Latitude coordinate</td>
+</tr>
+<tr>
+<td>longitude</td>
+<td>float</td>
+<td>Longitude coordinate</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: Contact</h3>
+<a id="user-content-table-contact" class="anchor" aria-label="Permalink: Table: Contact" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-contact"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores contact information.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>contact_id</td>
+<td>int</td>
+<td>Unique identifier for the contact</td>
+</tr>
+<tr>
+<td>social</td>
+<td>string</td>
+<td>Social media handle</td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>Email address</td>
+</tr>
+<tr>
+<td>website</td>
+<td>string</td>
+<td>Website URL</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: DatabaseSourceMetadata</h3>
+<a id="user-content-table-databasesourcemetadata" class="anchor" aria-label="Permalink: Table: DatabaseSourceMetadata" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-databasesourcemetadata"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores metadata information about database sources.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>source_id</td>
+<td>int</td>
+<td>Unique identifier for the database source</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name or identifier of the database source</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Description of the database source</td>
+</tr>
+<tr>
+<td>source_type</td>
+<td>string</td>
+<td>Type of the database source (e.g., CSV, API, Database)</td>
+</tr>
+<tr>
+<td>source_url</td>
+<td>string</td>
+<td>URL or location of the source (if applicable)</td>
+</tr>
+<tr>
+<td>license</td>
+<td>string</td>
+<td>License information (e.g., CC-BY)</td>
+</tr>
+<tr>
+<td>version</td>
+<td>string</td>
+<td>Version of the database source</td>
+</tr>
+<tr>
+<td>creation_date</td>
+<td>datetime</td>
+<td>Date when the source was created</td>
+</tr>
+<tr>
+<td>update_date</td>
+<td>datetime</td>
+<td>Date of the last update</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>string</td>
+<td>Keywords or tags describing the source</td>
+</tr>
+<tr>
+<td>publisher</td>
+<td>string</td>
+<td>Publisher of the source</td>
+</tr>
+<tr>
+<td>contributor</td>
+<td>string</td>
+<td>Contributor of the source</td>
+</tr>
+<tr>
+<td>language</td>
+<td>string</td>
+<td>Language of the source</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: DistributedResource</h3>
+<a id="user-content-table-distributedresource" class="anchor" aria-label="Permalink: Table: DistributedResource" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-distributedresource"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores information about distributed resources.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>resource_id</td>
+<td>int</td>
+<td>Unique identifier for the resource</td>
+</tr>
+<tr>
+<td>address_id</td>
+<td>int</td>
+<td>Reference to the address of the resource</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>int</td>
+<td>Reference to the contact information of the resource</td>
+</tr>
+<tr>
+<td>verification</td>
+<td>bool</td>
+<td>Verification status of the resource</td>
+</tr>
+<tr>
+<td>verificator_id</td>
+<td>int</td>
+<td>Reference to the data verificator</td>
+</tr>
+<tr>
+<td>source_id</td>
+<td>int</td>
+<td>Reference to the metadata of the source</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: DataVerificator</h3>
+<a id="user-content-table-dataverificator" class="anchor" aria-label="Permalink: Table: DataVerificator" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-dataverificator"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores information about data verificators.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>verificator_id</td>
+<td>int</td>
+<td>Unique identifier for the verificator</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the verificator</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Description of the verificator</td>
+</tr>
+<tr>
+<td>contact_id</td>
+<td>int</td>
+<td>Reference to the contact information of the verificator</td>
+</tr>
+<tr>
+<td>address_id</td>
+<td>int</td>
+<td>Reference to the address of the verificator</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: ManufacturingFacility</h3>
+<a id="user-content-table-manufacturingfacility" class="anchor" aria-label="Permalink: Table: ManufacturingFacility" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-manufacturingfacility"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores information about manufacturing facilities.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>facility_id</td>
+<td>int</td>
+<td>Unique identifier for the facility</td>
+</tr>
+<tr>
+<td>resource_id</td>
+<td>int</td>
+<td>Reference to the distributed resource</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the facility</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Description of the facility</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Type of the facility</td>
+</tr>
+<tr>
+<td>capacity</td>
+<td>int</td>
+<td>Capacity of the facility</td>
+</tr>
+<tr>
+<td>capabilities</td>
+<td>string</td>
+<td>Capabilities of the facility</td>
+</tr>
+<tr>
+<td>source_id</td>
+<td>int</td>
+<td>Reference to the metadata of the source</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: ManufacturingEquipment</h3>
+<a id="user-content-table-manufacturingequipment" class="anchor" aria-label="Permalink: Table: ManufacturingEquipment" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-manufacturingequipment"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores information about manufacturing equipment.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>equipment_id</td>
+<td>int</td>
+<td>Unique identifier for the equipment</td>
+</tr>
+<tr>
+<td>resource_id</td>
+<td>int</td>
+<td>Reference to the distributed resource</td>
+</tr>
+<tr>
+<td>brand</td>
+<td>string</td>
+<td>Brand of the equipment</td>
+</tr>
+<tr>
+<td>model</td>
+<td>string</td>
+<td>Model of the equipment</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Type of the equipment</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Description of the equipment</td>
+</tr>
+<tr>
+<td>source_id</td>
+<td>int</td>
+<td>Reference to the metadata of the source</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: ManufacturingService</h3>
+<a id="user-content-table-manufacturingservice" class="anchor" aria-label="Permalink: Table: ManufacturingService" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-manufacturingservice"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores information about manufacturing services.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>service_id</td>
+<td>int</td>
+<td>Unique identifier for the service</td>
+</tr>
+<tr>
+<td>resource_id</td>
+<td>int</td>
+<td>Reference to the distributed resource</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Type of the service</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Description of the service</td>
+</tr>
+<tr>
+<td>source_id</td>
+<td>int</td>
+<td>Reference to the metadata of the source</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: ManufacturingSkill</h3>
+<a id="user-content-table-manufacturingskill" class="anchor" aria-label="Permalink: Table: ManufacturingSkill" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-manufacturingskill"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores information about manufacturing skills.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>skill_id</td>
+<td>int</td>
+<td>Unique identifier for the skill</td>
+</tr>
+<tr>
+<td>resource_id</td>
+<td>int</td>
+<td>Reference to the distributed resource</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the skill</td>
+</tr>
+<tr>
+<td>bio</td>
+<td>string</td>
+<td>Biography of the skill</td>
+</tr>
+<tr>
+<td>skills</td>
+<td>string</td>
+<td>Skills associated with the skill</td>
+</tr>
+<tr>
+<td>source_id</td>
+<td>int</td>
+<td>Reference to the metadata of the source</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="markdown-heading" dir="auto">
+<h3 class="heading-element" dir="auto" tabindex="-1">Table: FindableProject</h3>
+<a id="user-content-table-findableproject" class="anchor" aria-label="Permalink: Table: FindableProject" href="https://github.com/iop-alliance/okw_data_management/blob/main/docs/okw_v1_schema_specification.md#table-findableproject"><svg class="octicon octicon-link" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg></a></div>
+<p dir="auto">Description: This table stores information about findable projects.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project_id</td>
+<td>int</td>
+<td>Unique identifier for the project</td>
+</tr>
+<tr>
+<td>resource_id</td>
+<td>int</td>
+<td>Reference to the distributed resource</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Name of the project</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Description of the project</td>
+</tr>
+<tr>
+<td>source_id</td>
+<td>int</td>
+<td>Reference to the metadata of the source</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">For contributions please reach out to @iop-alliance in Github.</p>
+            ]]>
+        </content>
     </entry>
     <entry>
         <title>USE CASES OVERVIEW</title>
