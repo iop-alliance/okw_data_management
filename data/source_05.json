@@ -1,0 +1,17 @@
+{
+    "source": "Maker Tour",
+    "url": "https://www.makertour.fr/map",
+    "csv": "raw_maker_tour2024_09_26_2053",
+    "records": 155,
+    "columns": 7,
+    "attributes": [
+        "name",
+        "city",
+        "country",
+        "tags",
+        "url",
+        "latitude",
+        "longitude"
+    ],
+    "updated": "2024_09_26_2053"
+}
