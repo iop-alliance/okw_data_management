@@ -21,17 +21,12 @@ Description: Python code for downloading, parsing, filtering, sorting data, expo
 '''
 
 
-from datetime import datetime
-now = datetime.now()
 from metaflow import FlowSpec, step, card, Parameter
-# from metaflow.cards import Markdown
-
 import pandas as pd
 from itables import to_html_datatable
 from __visualisations__ import Plot
 from __functions__ import req_data, filter_points_by_proximity
 
-update_date = now.strftime("%Y_%m_%d_%H%M")
 
 
 class Source_02(FlowSpec):
@@ -50,7 +45,6 @@ class Source_02(FlowSpec):
         self.raw = req_data(self.url).json()
         self.data = pd.DataFrame(self.raw)
         self.data.reset_index(drop=True, inplace=True)
-        self.data.to_csv('data/iopa/raw_source_02_' + update_date + '.csv')
         print(self.data.columns.tolist())
         self.next(self.clean)
     
@@ -76,9 +70,7 @@ class Source_02(FlowSpec):
         self.next(self.load)
     
     @step
-    def load(self):
-        
-        self.output.to_csv('data/iopa/iopa_source_02_' + update_date + '.csv')
+    def load(self):        
         self.next(self.data_table)
     
         

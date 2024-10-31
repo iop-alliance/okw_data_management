@@ -186,7 +186,6 @@ class ReverseGeocode:
         "population", "elevation", "dem", "timezone", "modification date"
     ]
    
-
     def __init__(self, dataframe, output=['cc2', 'city']):
         self.df = dataframe
         read_cities = pd.read_csv('data/cities500.txt', names=self.column_names, delimiter='\t')
