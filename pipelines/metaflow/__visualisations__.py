@@ -1,11 +1,11 @@
-'''
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct 31 07:51:41 2024
+
 Author: Antonio de Jesus Anaya Hernandez, DevOps eng. for the IoPA.
 
-Author: The internet of Production Alliance, 2023.
-
-Data was collected by "sridhar[at]upbeatlabs.com, and its partners", URL location: "https://www.google.com/maps/d/u/0/viewer?mid=10q6m1yyAUzFn2zqDcRwq-qInUmvoVz4q&ll=37.844558%2C-122.27696200000003&z=8"
-
-Data source license:
+Author: The internet of Production Alliance, 2024.
 
 The Open Know Where (OKW) Initiative is part of the Internet of Production Alliance and its members.
 
@@ -13,15 +13,17 @@ License: CC BY SA
 
 ![CC BY SA](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg)
 
-Description: Python code for downloading, parsing, filtering, sorting data, exporting the RAW makery locations, and the processed IOPA data as CSV.
-'''
+Description: Python code for processing data as maps and tables.
+"""
+
 
 
 import folium
 import numpy as np
-from folium.plugins import FastMarkerCluster, FloatImage
+from folium.plugins import FastMarkerCluster, FloatImage, Fullscreen, LocateControl, Geocoder, MeasureControl
 from itables import to_html_datatable
-
+import itables.options as opt
+opt.maxBytes = 0
 
 
 def load_js_file(file_path):
@@ -42,40 +44,53 @@ class Plot():
         self.prep_data()
         self.set_map()
         self.add_points()
+        self.add_legend()
 
         
         
     def prep_data(self):
         self.output_map = self.data.dropna(subset=['latitude', 'longitude'])
-        self.zip_data = [(row['latitude'], row['longitude'], row['name'] 
-                     # row['url'], 
-                     # row['email']
-                     ) 
-                    for index, row in self.output_map.iterrows()]
+        print(self.output_map.info(verbose=True))
+        # self.zip_data = [(row['latitude'], row['longitude'], row['name'] 
+        #              # row['url'], 
+        #              # row['email']
+        #              ) 
+        #             for index, row in self.output_map.iterrows()]
+        self.zip_data = list(zip(self.output_map['latitude'], self.output_map['longitude'], self.output_map['name']))
+        self.bounds = [[self.output_map['latitude'].min(),self.output_map['longitude'].min()],[self.output_map['latitude'].max(), self.output_map['longitude'].max()]]
         
     def set_map(self):
         # Check for NaN values in latitude and longitude before creating the map
         if not np.isnan(self.output_map['latitude']).any() and not np.isnan(self.output_map['longitude']).any():
             self.m = folium.Map(
                 location=[self.output_map['latitude'].mean(), self.output_map['longitude'].mean()],
-                # zoom_start=5,
+                zoom_start=1,
                 tiles=self.tiles_url,
                 attr=self.tiles_attribution,
-                max_zoom=16,
+                max_zoom=15,
                 # worldCopyJump= False,
                 zoomControl= False,
                 prefer_canvas=True
             )
-    
+            self.m.fit_bounds(self.bounds)
         else:
             print("Location values cannot contain NaNs.")
+            
  
     def add_points(self):
         FastMarkerCluster(data=self.zip_data, icon_create_function=self.icon_cluster, callback=self.callback, options={'singleMarkerMode': True, 'maxClusterRadius':self.max_rad}).add_to(self.m)
-
+    
+    def add_legend(self):
+        with open('pipelines/metaflow/assets/legend.html', 'r') as f:
+            legend_html = f.read()
+        self.m.get_root().html.add_child(folium.Element(legend_html))
 
     def render(self):
-        FloatImage("https://github.com/iop-alliance/data_reports/blob/main/assets/img/iopa_logo_okw_sm.png?raw=true", bottom=5, left=5).add_to(self.m)
+        FloatImage("https://github.com/iop-alliance/data_reports/blob/main/assets/img/iopa_logo_okw_sm.png?raw=true", bottom=3, left=3).add_to(self.m)
+        MeasureControl(position="bottomright").add_to(self.m)
+        Geocoder(position="topleft").add_to(self.m)
+        LocateControl(position="topleft").add_to(self.m)
+        Fullscreen(position="topright", title="Fullscreen", title_cancel="Exit", force_separate_button=True).add_to(self.m)
         return self.m.get_root().render()
 
 
@@ -92,11 +107,6 @@ class Tabular():
         {"extend": "excelHtml5", "title": "Manufacturing Locations"},],)
         return table_html
         
-
-#Fullscreen(
-#    position="topright",
-#    force_separate_button=True,
-#).add_to(m)
 
 # print(output["country_code"].value_counts().nlargest(10))
 

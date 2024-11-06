@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct 31 07:51:41 2024
+
+@author: kny5
+"""
+
+
+
 import requests
 from time import sleep
 import logging
@@ -7,6 +17,8 @@ import re
 import numpy as np
 import pandas as pd
 from scipy.spatial import KDTree
+from sklearn.cluster import DBSCAN
+
 
 
 def retry_on_exception(max_retries=3, backoff_factor=1):
@@ -115,8 +127,6 @@ def marsh_json(dataframe):
     return location_json_mapping
 
 
-from sklearn.cluster import DBSCAN
-from scipy.spatial import KDTree
 
 def filter_points_by_proximity(df, radius=100, min_points=2):
     # Drop rows with missing values in 'latitude' or 'longitude'
@@ -175,7 +185,6 @@ def iter_request(url):
         print('Pages: {p}'.format(p=x))
         print('Entries: {e}'.format(e=len(data)))
     return data
-
 
 
 class ReverseGeocode:

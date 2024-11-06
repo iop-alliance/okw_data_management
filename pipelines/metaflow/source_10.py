@@ -1,9 +1,17 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct 31 07:51:41 2024
+
+@author: kny5
+"""
+
+
+
 from metaflow import FlowSpec, step, card, Parameter
 import pandas as pd
-from itables import to_html_datatable
-from __visualisations__ import Plot
+from __visualisations__ import Plot, Tabular
 from __functions__ import req_data, filter_points_by_proximity
-
 
 
 class Source_10(FlowSpec):
@@ -28,39 +36,42 @@ class Source_10(FlowSpec):
         rn = self.raw.rename(columns={'id': 'makery_id','site_web': 'url', 'geo.latitude': 'latitude', 'geo.longitude': 'longitude'})
         filtered = rn[rn['status'] != 'closed']
         self.duplicates = filter_points_by_proximity(filtered, radius=int(self.radius_), min_points=int(self.min_points_))
-        self.html = to_html_datatable(self.duplicates, display_logo_when_loading=True, buttons=[
-            "pageLength",
-            {"extend": "csvHtml5", "title": "Duplicates Source 02"},
-            {"extend": "excelHtml5", "title": "Duplicates Source 02"},],)
+        self.html = Tabular(self.duplicates).table_output()
         self.data = filtered[['name', 'latitude', 'longitude']]
         self.output = self.data[~self.data.isin(self.duplicates).all(axis=1)]
         
-        self.next(self.transform)
+        self.next(self.visualise)
     
-    @step
-    def transform(self):
-        self.next(self.load)
+    # @step
+    # def transform(self):
+    #     self.next(self.load)
     
+    # @step
+    # def load(self):        
+    #     self.next(self.data_table, self.data_map)
+    
+        
     @step
-    def load(self):        
-        self.next(self.data_table)
+    def visualise(self):
+        self.next(self.data_table, self.data_map)
     
         
     @card(type='html')
     @step
     def data_table(self):
-        self.html = to_html_datatable(self.output, display_logo_when_loading=True, buttons=[
-        "pageLength",
-        {"extend": "csvHtml5", "title": "Manufacturing Locations"},
-        {"extend": "excelHtml5", "title": "Manufacturing Locations"},],)
-        
-        self.next(self.data_map)
+        self.html = Tabular(self.output).table_output()
+        self.next(self.join)
     
     
     @card(type='html')
     @step
     def data_map(self):
-        self.html = Plot(self.output).render()
+        self.html = Plot(self.output.dropna(subset=['latitude','longitude'])).render()
+        self.next(self.join)
+    
+    @step
+    def join(self, inputs):
+        self.output = inputs[0].output
         self.next(self.end)
     
     @step    
