@@ -51,7 +51,8 @@ class Source_12(FlowSpec):
         self.raw['latitude'] = pd.to_numeric(self.raw['location-Latitude'], errors='coerce')
         self.raw['longitude'] = pd.to_numeric(self.raw['location-Longitude'], errors='coerce')
         filter_0 = self.raw[~self.raw['country'].isin(['iraq', 'somalia', 'somaliland'])]
-        filter_1 = pd.concat([filter_0, self.patch], ignore_index=True)
+        filter_a = pd.concat([filter_0, self.patch], ignore_index=True)
+        filter_1 = filter_a[filter_a['name'].str.len() >= 4]
         filter_2 = filter_1[['name','latitude','longitude']].drop_duplicates(keep='last')
         filter_3 = filter_points_by_proximity(filter_2, radius=self.radius_, min_points=self.min_points_)
         self.output = filter_2[~filter_2.isin(filter_3).all(axis=1)]

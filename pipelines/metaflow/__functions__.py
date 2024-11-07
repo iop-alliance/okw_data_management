@@ -215,3 +215,75 @@ class ReverseGeocode:
         self.df[['cc2', 'city']] = self.df.apply(lambda row: pd.Series(self.nearest_neighbor(row['latitude'], row['longitude'])), axis=1)
         
         return self.df
+
+
+from fuzzywuzzy import fuzz
+import unicodedata
+
+def normalize_name(name):
+    """Normalize names by removing punctuation, extra spaces, accents, and sorting words."""
+    # Convert to lowercase
+    name = name.lower()
+    # Remove punctuation and extra spaces
+    name = re.sub(r'[^\w\s]', '', name)
+    # Remove accents
+    name = ''.join(c for c in unicodedata.normalize('NFD', name) if unicodedata.category(c) != 'Mn')
+    # Sort words to handle reordering
+    name = ' '.join(sorted(name.split()))
+    return name
+
+def cluster_and_aggregate(df, distance_threshold=100, similarity_threshold=0.8):
+    """
+    Clusters GPS points and aggregates URLs and sources of similar locations.
+    
+    Parameters:
+        df (pd.DataFrame): DataFrame with columns 'name', 'lat', 'long', 'url', and 'source'.
+        distance_threshold (float): Maximum distance (in meters) for clustering.
+        similarity_threshold (float): Minimum similarity ratio (0.0 - 1.0) for names to be considered similar.
+        
+    Returns:
+        pd.DataFrame: DataFrame with columns 'name', 'lat', 'long', and 'occurrences', where occurrences 
+                      is a list of dictionaries containing 'url' and 'source' for each similar occurrence.
+    """
+    # Step 1: Normalize names in the DataFrame
+    df['normalized_name'] = df['name'].apply(normalize_name)
+    
+    # Step 2: Cluster based on geographical coordinates using DBSCAN
+    coordinates = df[['latitude', 'longitude']].to_numpy()
+    db = DBSCAN(eps=distance_threshold / 6371000, min_samples=1, metric='haversine').fit(coordinates)
+    df['cluster'] = db.labels_
+    
+    # Step 3: Group by cluster and process each cluster
+    aggregated_data = []
+    processed_names = set()  # Track processed names
+    
+    for cluster_id, cluster_df in df.groupby('cluster'):
+        cluster_df = cluster_df.reset_index(drop=True)
+        
+        for idx, row in cluster_df.iterrows():
+            norm_name = row['normalized_name']
+            
+            # Only process if the normalized name is not in processed_names
+            if norm_name not in processed_names:
+                # Filter for similar normalized names within the cluster
+                similar_rows = cluster_df[
+                    cluster_df['normalized_name'].apply(
+                        lambda n: fuzz.token_sort_ratio(norm_name, n) / 100.0 >= similarity_threshold
+                    )
+                ]
+                
+                # Collect URLs and sources for each similar name
+                # occurrences = similar_rows[['url', 'source']].to_dict(orient='records')
+                aggregated_data.append({
+                    'name': row['name'],
+                    'latitude': row['latitude'],
+                    'longitude': row['longitude'],
+                    # 'occurrences': occurrences
+                })
+                
+                # Add processed names to avoid duplications
+                processed_names.update(similar_rows['normalized_name'])
+    
+    # Convert to DataFrame for output
+    aggregated_df = pd.DataFrame(aggregated_data)
+    return aggregated_df

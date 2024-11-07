@@ -14,7 +14,7 @@ Created on Mon Oct 28 06:17:15 2024
 import pandas as pd
 from metaflow import FlowSpec, step, Flow, card, resources
 from __visualisations__ import Plot, Tabular
-from __functions__ import filter_points_by_proximity
+from __functions__ import cluster_and_aggregate
 
 
 class JoinData01(FlowSpec):
@@ -53,9 +53,12 @@ class JoinData01(FlowSpec):
     
     @step
     def clean(self):
-        filter_0 = self.append_source.drop_duplicates(subset=['name', 'latitude', 'longitude'], keep='last')
-        filter_1 = filter_points_by_proximity(filter_0, radius=100, min_points=4)
-        self.output = filter_0[~filter_0.isin(filter_1).all(axis=1)]
+        # .drop_duplicates(subset=['name', 'latitude', 'longitude'], keep='last')
+        filter_0 = self.append_source.dropna(subset=['latitude','longitude'])
+        # filter_1 = filter_points_by_proximity(filter_0, radius=100, min_points=4)
+        self.output = cluster_and_aggregate(filter_0, distance_threshold=1000, similarity_threshold=0.7)
+        
+        # self.output = filter_0[~filter_0.isin(filter_1).all(axis=1)]
         self.next(self.visualise)
         
     @step
@@ -76,6 +79,8 @@ class JoinData01(FlowSpec):
         # Generate map visualization
         self.html = Plot(self.output, max_cluster_rad=30).render()
         self.next(self.wrap_up)
+    
+
     
     @card(type='html')
     @step
