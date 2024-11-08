@@ -29,12 +29,18 @@ class Source_03(FlowSpec):
         self.raw = extract_kml_data(self.url, req_data)
         self.next(self.clean)
     
-    
+    @card(type='html')
     @step
     def clean(self):
-        filter_10 = [(record.name, record.geometry.y, record.geometry.x) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
-        self.output = pd.DataFrame(filter_10, columns=['name', 'latitude', 'longitude'])
-        self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
+        filter_10 = [print(dir(record)) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
+        filter_20 = [record.to_string(prettyprint=True) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
+        
+        # filter_10 = [(record.name, record.geometry.y, record.geometry.x) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
+        self.data = pd.DataFrame(filter_20)
+        self.html = Tabular(self.data).table_output()
+        # self.output = pd.DataFrame(filter_10, columns=['name', 'latitude', 'longitude'])
+        print(self.data.columns.tolist())
+        
         self.next(self.visualise)
     
     # @step
@@ -48,6 +54,8 @@ class Source_03(FlowSpec):
         
     @step
     def visualise(self):
+        self.output = self.data[['name','geometry']]
+        self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
         self.next(self.data_table, self.data_map)
     
         
