@@ -15,11 +15,12 @@ from __visualisations__ import Plot, Tabular
 from __functions__ import req_data, filter_points_by_proximity
 
 
+
 class Source_12(FlowSpec):
         
     url = Parameter('url', default="https://github.com/kny5/db/raw/refs/heads/db_global/Global.sqlite")
     radius_ = Parameter('radius', default=100)
-    min_points_ = Parameter('min_points', default=5)
+    min_points_ = Parameter('min_points', default=2)
     
     @step
     def start(self):

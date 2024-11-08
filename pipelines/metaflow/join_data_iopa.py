@@ -55,10 +55,13 @@ class JoinData01(FlowSpec):
     def clean(self):
         # .drop_duplicates(subset=['name', 'latitude', 'longitude'], keep='last')
         filter_0 = self.append_source.dropna(subset=['latitude','longitude'])
+        # filter_a = clean_and_cluster_records(filter_0, distance_threshold=6000, name_similarity_threshold=0.8)
         # filter_1 = filter_points_by_proximity(filter_0, radius=100, min_points=4)
-        self.output = cluster_and_aggregate(filter_0, distance_threshold=1000, similarity_threshold=0.7)
-        
+        filter_1 = cluster_and_aggregate(filter_0, distance_threshold=6000, similarity_threshold=0.7)
+        # filter_1 = cluster_and_key_collision_sim(filter_0, distance_threshold=6000, n=3, similarity_threshold=0.8)
+        # self.output = cluster_and_key_collision(filter_0, distance_threshold=6000, n=2)
         # self.output = filter_0[~filter_0.isin(filter_1).all(axis=1)]
+        self.output = filter_1
         self.next(self.visualise)
         
     @step

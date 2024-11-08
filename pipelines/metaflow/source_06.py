@@ -10,13 +10,14 @@ Created on Thu Oct 31 07:51:41 2024
 from metaflow import FlowSpec, step, card, Parameter
 import pandas as pd
 from __visualisations__ import Plot, Tabular
-from __functions__ import filter_points_by_proximity, iter_request
+# from __functions__ import filter_points_by_proximity, iter_request
+from okw_libs.dwld import iter_request
 
 
 
 class Source_06(FlowSpec):
     
-    url = Parameter('url', default="https://make.works/companies?page={n}&format=json")
+    url = "https://make.works/companies?page={n}&format=json"
     radius_ = Parameter('radius', default=1)
     min_points_ = Parameter('min_points', default=3)
     
@@ -38,10 +39,12 @@ class Source_06(FlowSpec):
     def clean(self):
         self.data['latitude'] = self.data['lat']
         self.data['longitude'] = self.data['lng']
-        n_transform = self.data[['latitude', 'longitude', 'name']]
-        d_transform = filter_points_by_proximity(n_transform, radius=int(self.radius_), min_points=int(self.min_points_))
-        e_transform = n_transform[['name', 'latitude', 'longitude']]
-        self.output = e_transform[~e_transform.isin(d_transform).all(axis=1)]
+        # n_transform = self.data[['latitude', 'longitude', 'name']]
+        # d_transform = filter_points_by_proximity(n_transform, radius=int(self.radius_), min_points=int(self.min_points_))
+        # e_transform = n_transform[['name', 'latitude', 'longitude']]
+        # self.output = e_transform[~e_transform.isin(d_transform).all(axis=1)]
+        filter_10 = self.data[['name','latitude','longitude']]
+        self.output = filter_10.drop_duplicates(subset=['name'])
         print(self.output.columns.tolist())
         self.next(self.visualise)
     

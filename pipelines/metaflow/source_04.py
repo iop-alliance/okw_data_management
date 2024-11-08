@@ -8,14 +8,17 @@ Created on Thu Oct 31 07:51:41 2024
 
 
 
-from metaflow import FlowSpec, step, card, Parameter
+from metaflow import FlowSpec, step, card
 import pandas as pd
 from __visualisations__ import Plot, Tabular
-from __functions__ import extract_kml_data
+from okw_libs.dwld import req_data
+from okw_libs.g_maps import extract_kml_data
+
+
 
 class Source_04(FlowSpec):
     
-    url = Parameter('url', default="https://www.google.com/maps/d/u/0/viewer?mid=1wKXDd1rOs4ls1EiZswQr-upFq7o&ll=38.418307201373004%2C-100.67343475982062&z=5")
+    url = "https://www.google.com/maps/d/u/0/viewer?mid=1wKXDd1rOs4ls1EiZswQr-upFq7o&ll=38.418307201373004%2C-100.67343475982062&z=5"
         
     @step
     def start(self):
@@ -23,7 +26,7 @@ class Source_04(FlowSpec):
     
     @step
     def extract(self):
-        self.raw = extract_kml_data(self.url)
+        self.raw = extract_kml_data(self.url, req_data)
         self.next(self.clean)
     
     

@@ -10,10 +10,11 @@ Created on Thu Oct 31 07:51:41 2024
 
 import json
 from bs4 import BeautifulSoup
-from metaflow import FlowSpec, step, card, Parameter
+from metaflow import FlowSpec, step, card
 import pandas as pd
 from __visualisations__ import Plot, Tabular
-from __functions__ import req_data
+from okw_libs.dwld import req_data
+
 
 
 def html_collector(html_content):
@@ -30,7 +31,7 @@ def html_collector(html_content):
 
 class Source_05(FlowSpec):
     
-    url = Parameter('url', default="https://www.makertour.fr/map")
+    url = "https://www.makertour.fr/map"
     
     @step
     def start(self):

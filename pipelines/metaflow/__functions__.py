@@ -12,7 +12,6 @@ import requests
 from time import sleep
 import logging
 import functools
-from fastkml import kml
 import re
 import numpy as np
 import pandas as pd
@@ -75,31 +74,7 @@ def req_data(url, timer=1, verbose=False, head={'User-Agent': 'Mozilla/5.0 (Wind
     return inner()  # Directly return the response
 
 
-def extract_kml_data(gmap_URL):
-    """
 
-    Args:
-        gmap_URL:
-
-    Returns:
-
-    """
-
-    pattern = r"mid=(\w+-\w+)"
-    match = re.search(pattern, gmap_URL)
-    mid_value = ""
-    if not match:
-        print("No 'mid' value found in the URL.")
-    else:
-        mid_value += match.group(1)
-        print(f"The extracted 'mid' value is: {mid_value}")
-
-    kml_url = "http://www.google.com/maps/d/kml?forcekml=1&mid=" + mid_value
-    g_map = req_data(kml_url)
-    kml_file = kml.KML()
-    kml_file.from_string(g_map.content)
-
-    return kml_file
 
 
 def marsh_json(dataframe):
@@ -220,6 +195,49 @@ class ReverseGeocode:
 from fuzzywuzzy import fuzz
 import unicodedata
 
+def ngram_fingerprint(text, n=3):
+    """
+    Generate an n-gram fingerprint for a given text following specific normalization steps.
+
+    Steps:
+        1. Change all characters to lowercase.
+        2. Remove all punctuation, whitespace, and control characters.
+        3. Obtain all n-grams of the specified length.
+        4. Sort the n-grams and remove duplicates.
+        5. Join the sorted n-grams back together.
+        6. Normalize extended Western characters to their ASCII representation.
+
+    Parameters:
+        text (str): The input text to be fingerprinted.
+        n (int): The size of n-grams.
+
+    Returns:
+        str: The n-gram fingerprint.
+    """
+    # Step 1: Change all characters to lowercase
+    text = text.lower()
+    
+    # Step 2: Remove all punctuation, whitespace, and control characters
+    text = re.sub(r'[^\w]', '', text)
+    
+    # Step 3: Normalize extended Western characters to their ASCII representation
+    text = ''.join(
+        c for c in unicodedata.normalize('NFD', text)
+        if unicodedata.category(c) != 'Mn'
+    )
+    
+    # Step 4: Obtain all n-grams
+    ngrams = [text[i:i+n] for i in range(len(text) - n + 1)]
+    
+    # Step 5: Sort the n-grams and remove duplicates
+    unique_ngrams = sorted(set(ngrams))
+    
+    # Step 6: Join the sorted n-grams back together
+    fingerprint = ''.join(unique_ngrams)
+    
+    return fingerprint
+
+
 def normalize_name(name):
     """Normalize names by removing punctuation, extra spaces, accents, and sorting words."""
     # Convert to lowercase
@@ -246,7 +264,7 @@ def cluster_and_aggregate(df, distance_threshold=100, similarity_threshold=0.8):
                       is a list of dictionaries containing 'url' and 'source' for each similar occurrence.
     """
     # Step 1: Normalize names in the DataFrame
-    df['normalized_name'] = df['name'].apply(normalize_name)
+    df['normalized_name'] = df['name'].apply(ngram_fingerprint)
     
     # Step 2: Cluster based on geographical coordinates using DBSCAN
     coordinates = df[['latitude', 'longitude']].to_numpy()
@@ -283,6 +301,54 @@ def cluster_and_aggregate(df, distance_threshold=100, similarity_threshold=0.8):
                 
                 # Add processed names to avoid duplications
                 processed_names.update(similar_rows['normalized_name'])
+    
+    # Convert to DataFrame for output
+    aggregated_df = pd.DataFrame(aggregated_data)
+    return aggregated_df
+
+
+
+
+def cluster_and_key_collision(df, distance_threshold=100, n=3):
+    """
+    Clusters GPS points, applies n-gram fingerprinting for collision detection, and aggregates URLs and sources.
+    
+    Parameters:
+        df (pd.DataFrame): DataFrame with columns 'name', 'lat', 'long', 'url', and 'source'.
+        distance_threshold (float): Maximum distance (in meters) for clustering.
+        n (int): The n-gram size for fingerprinting.
+        
+    Returns:
+        pd.DataFrame: DataFrame with columns 'name', 'lat', 'long', and 'occurrences', where occurrences 
+                      is a list of dictionaries containing 'url' and 'source' for each similar occurrence.
+    """
+    # Step 1: Apply n-gram fingerprinting to the 'name' column
+    df['name_fingerprint'] = df['name'].apply(lambda x: ngram_fingerprint(x, n))
+
+    # Step 2: Cluster based on geographical coordinates using DBSCAN
+    coordinates = df[['latitude', 'longitude']].to_numpy()
+    db = DBSCAN(eps=distance_threshold / 6371000, min_samples=1, metric='haversine').fit(coordinates)
+    df['cluster'] = db.labels_
+    
+    # Step 3: Group by cluster and process each cluster
+    aggregated_data = []
+    
+    for cluster_id, cluster_df in df.groupby('cluster'):
+        cluster_df = cluster_df.reset_index(drop=True)
+        fingerprint_groups = cluster_df.groupby('name_fingerprint')
+        
+        for fingerprint, group in fingerprint_groups:
+            # Get the first occurrence for latitude and longitude
+            first_row = group.iloc[0]
+            
+            # Collect URLs and sources for each entry with the same fingerprint
+            # occurrences = group[['url', 'source']].to_dict(orient='records')
+            aggregated_data.append({
+                'name': first_row['name'],
+                'latitude': first_row['latitude'],
+                'longitude': first_row['longitude'],
+                # 'occurrences': occurrences
+            })
     
     # Convert to DataFrame for output
     aggregated_df = pd.DataFrame(aggregated_data)
