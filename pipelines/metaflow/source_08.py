@@ -12,7 +12,7 @@ from metaflow import FlowSpec, step, card
 import pandas as pd
 from __visualisations__ import Plot, Tabular
 from okw_libs.dwld import req_data
-from okw_libs.g_maps import extract_kml_data
+from okw_libs.g_maps import extract_kml_data, extract_urls
 
 
 
@@ -33,6 +33,7 @@ class Source_08(FlowSpec):
     @step
     def clean(self):
         self.data = [(record.name, record.geometry.y, record.geometry.x) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
+        self.data['web_url'] = self.data['description'].apply(extract_urls)
         self.output = pd.DataFrame(self.data, columns=['name', 'latitude', 'longitude'])
         self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
         self.next(self.visualise)

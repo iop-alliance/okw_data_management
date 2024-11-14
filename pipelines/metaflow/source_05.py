@@ -35,7 +35,6 @@ class Source_05(FlowSpec):
     
     @step
     def start(self):
-        
         self.next(self.extract)
     
     @step
@@ -48,24 +47,15 @@ class Source_05(FlowSpec):
         for record in json_data:
             self.raw.append(html_collector(record['content']) + [record['lat'], record['lng']])
 
-        columns = ['name', 'city', 'country', 'tags', 'url', 'latitude', 'longitude']
+        columns = ['name', 'city', 'country', 'tags', 'record_source_url', 'latitude', 'longitude']
         self.data = pd.DataFrame(self.raw, columns=columns)
         
         self.next(self.clean)
     
     @step
     def clean(self):
-        self.output = self.data[['name', 'latitude', 'longitude']]
+        self.output = self.data[['name', 'latitude', 'longitude', 'record_source_url']]
         self.next(self.visualise)
-    
-    # @step
-    # def transform(self):
-    #     self.next(self.load)
-    
-    # @step
-    # def load(self):        
-    #     self.next(self.data_table, self.data_map)
-    
         
     @step
     def visualise(self):

@@ -41,9 +41,8 @@ class Source_07(FlowSpec):
     @card(type='html')
     @step
     def clean(self):
-        self.data['latitude'] = self.data['lat']
-        self.data['longitude'] = self.data['lng']
-        self.output = self.data[['name','latitude','longitude']]
+        self.data.rename(columns={'lat':'latitude', 'lng': 'longitude', 'url': 'record_source_url', 'web': 'web_url'}, inplace=True)
+        self.output = self.data[['name','latitude','longitude','record_source_url', 'web_url']]
         # self.next(self.transform)
         self.next(self.visualise)
     

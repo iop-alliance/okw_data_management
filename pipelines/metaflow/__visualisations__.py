@@ -88,7 +88,7 @@ class Plot():
     def render(self):
         FloatImage("https://github.com/iop-alliance/data_reports/blob/main/assets/img/iopa_logo_okw_sm.png?raw=true", bottom=3, left=3).add_to(self.m)
         MeasureControl(position="bottomright").add_to(self.m)
-        Geocoder(position="topleft").add_to(self.m)
+        # Geocoder(position="topleft").add_to(self.m)
         LocateControl(position="topleft").add_to(self.m)
         Fullscreen(position="topright", title="Fullscreen", title_cancel="Exit", force_separate_button=True).add_to(self.m)
         return self.m.get_root().render()

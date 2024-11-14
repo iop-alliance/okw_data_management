@@ -25,28 +25,31 @@ class Source_02(FlowSpec):
     def start(self):
         print(self.__class__.__name__)
         self.next(self.extract)
-    
+    @card(type='html')
     @step
     def extract(self):
         self.raw = req_data(self.url).json()
         self.data = pd.DataFrame(self.raw)
+        self.html = Tabular(self.data).table_output()
         print(self.data.columns.tolist())
         self.next(self.clean)
     
     @step
     def clean(self):
         filter_10 = self.data[~self.data['activity_status'].isin(['closed', 'planned'])]
-        # n_transform = c_transform[c_transform['activity_status'] != 'planned']
         # d_transform = filter_points_by_proximity(n_transform, radius=int(self.radius_), min_points=int(self.min_points_))
-        # e_transform = n_transform[['name', 'latitude', 'longitude']]
         # self.validata = e_transform[~e_transform.isin(d_transform).all(axis=1)]
-        filter_20 = filter_10.drop_duplicates(subset=['name'], keep='last')
-        self.output = filter_20[['name', 'latitude', 'longitude']]
-        self.next(self.visualise)
+        self.cleaned = filter_10.drop_duplicates(subset=['name'], keep='last')
+        self.next(self.transform)
     
-    # @step
-    # def transform(self):
-    #     self.next(self.load)
+    @step
+    def transform(self):
+        self.cleaned['record_source_url'] = 'https://www.fablabs.io/labs/' + self.cleaned.slug
+        # Convert the JSON string in 'links' to a Python object, and then extract the URL
+        # Directly access the first element of the 'links' list, and check for the 'url' key
+        self.cleaned['web_url'] = self.cleaned['links'].apply(lambda x: x[0]['url'] if isinstance(x, list) and len(x) > 0 else None)
+        self.output = self.cleaned[['name', 'latitude', 'longitude','record_source_url','web_url']]
+        self.next(self.visualise)
     
     # @step
     # def load(self):        

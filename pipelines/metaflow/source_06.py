@@ -37,14 +37,10 @@ class Source_06(FlowSpec):
     @card(type='html')
     @step
     def clean(self):
-        self.data['latitude'] = self.data['lat']
-        self.data['longitude'] = self.data['lng']
-        # n_transform = self.data[['latitude', 'longitude', 'name']]
+        self.data.rename(columns={'url': 'record_source_url', 'lat': 'latitude', 'lng': 'longitude', 'website': 'web_url'}, inplace=True) 
         # d_transform = filter_points_by_proximity(n_transform, radius=int(self.radius_), min_points=int(self.min_points_))
-        # e_transform = n_transform[['name', 'latitude', 'longitude']]
         # self.output = e_transform[~e_transform.isin(d_transform).all(axis=1)]
-        filter_10 = self.data[['name','latitude','longitude']]
-        self.output = filter_10.drop_duplicates(subset=['name'])
+        self.output = self.data[['name','latitude','longitude', 'record_source_url', 'web_url']]
         print(self.output.columns.tolist())
         self.next(self.visualise)
     

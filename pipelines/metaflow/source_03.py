@@ -12,7 +12,7 @@ from metaflow import FlowSpec, step, card
 import pandas as pd
 from __visualisations__ import Plot, Tabular
 from okw_libs.dwld import req_data
-from okw_libs.g_maps import extract_kml_data
+from okw_libs.g_maps import extract_kml_data, kml_object_to_dict, parse_description
 
 
 
@@ -32,15 +32,11 @@ class Source_03(FlowSpec):
     @card(type='html')
     @step
     def clean(self):
-        filter_10 = [print(dir(record)) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
-        filter_20 = [record.to_string(prettyprint=True) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
-        
-        # filter_10 = [(record.name, record.geometry.y, record.geometry.x) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
-        self.data = pd.DataFrame(filter_20)
+        filter_10 = [kml_object_to_dict(record) for folder in list(list(self.raw.features())[0].features()) for record in folder.features()]
+        filter_20 = pd.DataFrame(filter_10)
+        filter_30 = filter_20['description'].apply(parse_description).apply(pd.Series)
+        self.data = pd.concat([filter_20, filter_30], axis=1).drop(columns=['description', 'ns', 'styleUrl'])
         self.html = Tabular(self.data).table_output()
-        # self.output = pd.DataFrame(filter_10, columns=['name', 'latitude', 'longitude'])
-        print(self.data.columns.tolist())
-        
         self.next(self.visualise)
     
     # @step
@@ -50,31 +46,33 @@ class Source_03(FlowSpec):
     # @step
     # def load(self):        
     #     self.next(self.data_table, self.data_map)
-    
         
     @step
     def visualise(self):
-        self.output = self.data[['name','geometry']]
-        self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
-        self.next(self.data_table, self.data_map)
+        self.output = self.data[['name','latitude', 'longitude', 'web_url']]
+        self.next(self.data_table, self.data_map, self.data_stats)
     
-        
     @card(type='html')
     @step
     def data_table(self):
         self.html = Tabular(self.output).table_output()
-        self.next(self.join)
-    
+        self.next(self.wrapup)
     
     @card(type='html')
     @step
     def data_map(self):
         self.html = Plot(self.output.dropna(subset=['latitude','longitude'])).render()
-        self.next(self.join)
+        self.next(self.wrapup)
+        
+    @card(type='html')
+    @step
+    def data_stats(self):
+        self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
+        self.next(self.wrapup)
     
     @step
-    def join(self, inputs):
-        self.output = inputs[0].output
+    def wrapup(self, inputs):
+        # self.output = inputs[0].output
         self.next(self.end)
     
     @step    
