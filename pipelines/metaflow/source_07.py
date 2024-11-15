@@ -38,10 +38,10 @@ class Source_07(FlowSpec):
         print(self.data.columns.tolist())
         self.next(self.clean)
     
-    @card(type='html')
     @step
     def clean(self):
-        self.data.rename(columns={'lat':'latitude', 'lng': 'longitude', 'url': 'record_source_url', 'web': 'web_url'}, inplace=True)
+        self.data['record_source_url'] = self.data.url.apply(lambda x: 'https://offene-werkstaetten.org/werkstatt/' + x)
+        self.data.rename(columns={'lat':'latitude', 'lng': 'longitude', 'web': 'web_url'}, inplace=True)
         self.output = self.data[['name','latitude','longitude','record_source_url', 'web_url']]
         # self.next(self.transform)
         self.next(self.visualise)

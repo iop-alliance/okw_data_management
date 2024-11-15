@@ -65,7 +65,7 @@ class Source_04(FlowSpec):
         self.html = Plot(self.output.dropna(subset=['latitude','longitude'])).render()
         self.next(self.wrapup)
         
-    @card(type='html')
+    # @card(type='html')
     @step
     def data_stats(self):
         self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())

@@ -79,5 +79,8 @@ def parse_description(desc):
 
 def extract_urls(text):
     # Regex pattern to match http, https, or other URLs
-    url_pattern = r'https?://\S+|ftp://\S+|file://\S+|www\.\S+'
-    return re.findall(url_pattern, text)
+    if isinstance(text, str):
+        url_pattern = r'https?://\S+|ftp://\S+|file://\S+|www\.\S+'
+        return re.findall(url_pattern, text)
+    else:
+        return None
