@@ -37,8 +37,9 @@ class Plot():
     def __init__(self, dataframe, max_cluster_rad=40):
         self.icon_cluster = load_js_file('pipelines/metaflow/assets/cluster_icon.js')
         self.callback = load_js_file('pipelines/metaflow/assets/cluster_mod.js')
-        self.tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
-        self.tiles_attribution = 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+        #self.tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+        self.tiles_url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
+        self.tiles_attribution = 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
         self.data = dataframe
         self.max_rad = max_cluster_rad
         self.prep_data()
@@ -56,7 +57,10 @@ class Plot():
         #              # row['email']
         #              ) 
         #             for index, row in self.output_map.iterrows()]
-        self.zip_data = list(zip(self.output_map['latitude'], self.output_map['longitude'], self.output_map['name']))
+        try:
+            self.zip_data = list(zip(self.output_map['latitude'], self.output_map['longitude'], self.output_map['name'], self.output_map['web_url']))
+        except KeyError:
+            self.zip_data = list(zip(self.output_map['latitude'], self.output_map['longitude'], self.output_map['name'], str(self.output_map['occurrences'])))
         self.bounds = [[self.output_map['latitude'].min(),self.output_map['longitude'].min()],[self.output_map['latitude'].max(), self.output_map['longitude'].max()]]
         
     def set_map(self):

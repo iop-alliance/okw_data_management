@@ -171,24 +171,24 @@ class ReverseGeocode:
     ]
    
     def __init__(self, dataframe, output=['cc2', 'city']):
-        self.df = dataframe
+        self.df = dataframe.dropna(subset=['latitude', 'longitude'])
         read_cities = pd.read_csv('data/cities500.txt', names=self.column_names, delimiter='\t')
-        geocodes = read_cities[['name', 'country code', 'latitude', 'longitude']].rename(
-            columns={'country code': 'cc', 'latitude': 'lat', 'longitude': 'lon'}
+        self.geocodes = read_cities[['name', 'country code', 'latitude', 'longitude','timezone']].rename(
+            columns={'country code': 'cc2'}
         )
         # Initialize KDTree once for fast lookups
-        self.tree = KDTree(geocodes[['lat', 'lon']])
+        self.tree = KDTree(self.geocodes[['latitude', 'longitude']])
     
-    def nearest_neighbor(self, lat, lon):
+    def nearest_neighbor(self, latitude, longitude):
         """Get nearest location info based on latitude and longitude."""
-        _, idx = self.tree.query([lat, lon])
+        _, idx = self.tree.query([latitude, longitude])
         row = self.geocodes.iloc[idx]
-        return row['cc'], row['name']
+        return row['cc2'], row['name'], row['timezone']
     
     def get(self):
         """Process merged data for reverse geocoding."""
-        self.df[['cc2', 'city']] = self.df.apply(lambda row: pd.Series(self.nearest_neighbor(row['latitude'], row['longitude'])), axis=1)
-        
+        self.df[['cc2', 'city', 'timezone']] = self.df.apply(lambda row: pd.Series(self.nearest_neighbor(row['latitude'], row['longitude'])), axis=1)
+        self.df['continent'] = self.df['timezone'].str.split('/').str[0]
         return self.df
 
 
@@ -250,6 +250,7 @@ def normalize_name(name):
     name = ' '.join(sorted(name.split()))
     return name
 
+
 def cluster_and_aggregate(df, distance_threshold=100, similarity_threshold=0.8):
     """
     Clusters GPS points and aggregates URLs and sources of similar locations.
@@ -291,12 +292,12 @@ def cluster_and_aggregate(df, distance_threshold=100, similarity_threshold=0.8):
                 ]
                 
                 # Collect URLs and sources for each similar name
-                # occurrences = similar_rows[['url', 'source']].to_dict(orient='records')
+                
                 aggregated_data.append({
                     'name': row['name'],
                     'latitude': row['latitude'],
                     'longitude': row['longitude'],
-                    # 'occurrences': occurrences
+                    'web_url': row['web_url']
                 })
                 
                 # Add processed names to avoid duplications

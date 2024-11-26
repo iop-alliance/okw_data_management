@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 from metaflow import FlowSpec, step, card
 import pandas as pd
 from __visualisations__ import Plot, Tabular
+from __functions__ import ReverseGeocode
 from okw_libs.dwld import req_data
 
 
@@ -47,36 +48,47 @@ class Source_05(FlowSpec):
         for record in json_data:
             self.raw.append(html_collector(record['content']) + [record['lat'], record['lng']])
 
-        columns = ['name', 'city', 'country', 'tags', 'record_source_url', 'latitude', 'longitude']
+        columns = ['name', 'city', 'country', 'tags', 'web_url', 'latitude', 'longitude']
         self.data = pd.DataFrame(self.raw, columns=columns)
-        
+        print(self.data.columns.tolist())
         self.next(self.clean)
     
     @step
     def clean(self):
-        self.output = self.data[['name', 'latitude', 'longitude', 'record_source_url']]
+        self.output = self.data[['name', 'latitude', 'longitude', 'web_url']]
+        self.next(self.transform)
+        
+    @card(type='html')
+    @step
+    def transform(self):
+        self.geocode = ReverseGeocode(self.output).get()
+        self.html = Tabular(self.geocode).table_output()
         self.next(self.visualise)
         
     @step
     def visualise(self):
-        self.next(self.data_table, self.data_map)
+        self.next(self.data_table, self.data_map, self.data_stats)
     
         
     @card(type='html')
     @step
     def data_table(self):
         self.html = Tabular(self.output).table_output()
-        self.next(self.join)
-    
+        self.next(self.wrapup)
     
     @card(type='html')
     @step
     def data_map(self):
         self.html = Plot(self.output.dropna(subset=['latitude','longitude'])).render()
-        self.next(self.join)
+        self.next(self.wrapup)
+        
+    @step
+    def data_stats(self):
+        self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
+        self.next(self.wrapup)
     
     @step
-    def join(self, inputs):
+    def wrapup(self, inputs):
         self.output = inputs[0].output
         self.next(self.end)
     

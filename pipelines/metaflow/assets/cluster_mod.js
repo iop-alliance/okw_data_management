@@ -5,7 +5,7 @@ function createMarker(row) {
     const url = { text: row[3] };
 
     var mytext = $(`<div id='pop_content' class='pop_custom' style='width: 100.0%; height: 100.0%;'>
-                        <strong>${name.text}</strong>
+                        <a href="${url.text}" target="_blank"><strong>${name.text}</strong></a>
                     </div>`)[0];
 
     popup.setContent(mytext);

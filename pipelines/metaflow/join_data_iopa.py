@@ -14,12 +14,12 @@ Created on Mon Oct 28 06:17:15 2024
 import pandas as pd
 from metaflow import FlowSpec, step, Flow, card, resources
 from __visualisations__ import Plot, Tabular
-from __functions__ import cluster_and_aggregate
+from __functions__ import cluster_and_aggregate, ReverseGeocode
 
 
 class JoinData01(FlowSpec):
     
-    @resources(memory=6000, cpu=10, gpu=1)
+    @resources(memory=8000, cpu=11, gpu=1)
     @step
     def start(self):
         # Define the sources from which to fetch data
@@ -42,12 +42,14 @@ class JoinData01(FlowSpec):
     def get_data(self):
         print(self.input)
         # Access the 'output' attribute of the latest run in each source
+        
         self.data = Flow(self.input).latest_successful_run.data.output
         self.next(self.concatenate)
         
     @step
     def concatenate(self, inputs):
         # Concatenate the data collected from each input in get_data step
+        #self.merge_artifacts(inputs)
         self.append_source = pd.concat([inp.data for inp in inputs if not inp.data.empty], ignore_index=True)
         self.next(self.clean)
     
@@ -62,6 +64,15 @@ class JoinData01(FlowSpec):
         # self.output = cluster_and_key_collision(filter_0, distance_threshold=6000, n=2)
         # self.output = filter_0[~filter_0.isin(filter_1).all(axis=1)]
         self.output = filter_1
+        self.next(self.transform)
+        
+    @card(type='html')
+    @step
+    def transform(self):
+        self.geocode = ReverseGeocode(self.output).get()
+        # self.html = Tabular(self.geocode).table_output()
+        self.makeafricaeu = self.geocode[self.geocode['continent'].isin(['Africa', 'Europe'])]
+        self.html = Plot(self.makeafricaeu, max_cluster_rad=30).render()
         self.next(self.visualise)
         
     @step

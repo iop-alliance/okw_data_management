@@ -11,6 +11,7 @@ Created on Thu Oct 31 07:51:41 2024
 from metaflow import FlowSpec, step, card
 import pandas as pd
 from __visualisations__ import Plot, Tabular
+from __functions__ import ReverseGeocode
 from okw_libs.dwld import req_data
 from okw_libs.g_maps import extract_kml_data, extract_urls, kml_object_to_dict
 
@@ -36,22 +37,21 @@ class Source_08(FlowSpec):
         filter_20 = pd.DataFrame(filter_10)
         filter_20['web_url'] = filter_20['description'].apply(extract_urls)[0]
         self.data = filter_20.drop(columns=['ns', 'styleUrl'])
+        print(self.data.columns.tolist())
+        self.output = self.data[['name','latitude','longitude','web_url']]
         self.html = Tabular(self.data).table_output()
-        self.next(self.visualise)
+        self.next(self.transform)
         
-    
-    # @step
-    # def transform(self):
-    #     self.next(self.load)
-    
-    # @step
-    # def load(self):        
-    #     self.next(self.data_table, self.data_map)
+    @card(type='html')
+    @step
+    def transform(self):
+        self.geocode = ReverseGeocode(self.output).get()
+        self.html = Tabular(self.geocode).table_output()
+        self.next(self.visualise)
     
         
     @step
     def visualise(self):
-        self.output = self.data[['name','latitude', 'longitude', 'web_url']]
         self.next(self.data_table, self.data_map, self.data_stats)
     
     @card(type='html')
@@ -74,7 +74,7 @@ class Source_08(FlowSpec):
     
     @step
     def wrapup(self, inputs):
-        # self.output = inputs[0].output
+        self.output = inputs[0].output
         self.next(self.end)
     
     @step    

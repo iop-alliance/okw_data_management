@@ -11,7 +11,7 @@ Created on Thu Oct 31 07:51:41 2024
 from metaflow import FlowSpec, step, card, Parameter
 import pandas as pd
 from __visualisations__ import Plot, Tabular
-from __functions__ import req_data
+from __functions__ import req_data, ReverseGeocode
 
 
 class Source_11(FlowSpec):
@@ -29,6 +29,7 @@ class Source_11(FlowSpec):
     def extract(self):
         data = req_data(self.url).json()
         self.raw = pd.json_normalize(data, 'Makerspaces')
+        print(self.raw.columns.tolist())
         self.html = Tabular(self.raw).table_output()
         self.next(self.clean)
     
@@ -37,40 +38,42 @@ class Source_11(FlowSpec):
     def clean(self):
         self.raw['latitude'] = pd.to_numeric(self.raw['lat'], errors='coerce')
         self.raw['longitude'] = pd.to_numeric(self.raw['long'], errors='coerce')
-        self.output = self.raw[['name','latitude','longitude']]
+        self.raw.rename(columns={'link': 'web_url'}, inplace=True)
+        self.output = self.raw[['name','latitude','longitude', 'web_url']]
         self.html_2 = Tabular(self.output).table_output()
-        # self.next(self.transform)
+        self.next(self.transform)
+        
+    @card(type='html')
+    @step
+    def transform(self):
+        # self.output['record_source_url'] = self.output.link.apply(lambda x: 'https://makerspace.com' + x)
+        self.geocode = ReverseGeocode(self.output).get()
+        self.html = Tabular(self.geocode).table_output()
         self.next(self.visualise)
-    
-    # @step
-    # def transform(self):
-    #     self.next(self.load)
-    
-    # @step
-    # def load(self):        
-    #     self.next(self.data_table, self.data_map)
-    
         
     @step
     def visualise(self):
-        self.next(self.data_table, self.data_map)
+        self.next(self.data_table, self.data_map, self.data_stats)
     
-        
     @card(type='html')
     @step
     def data_table(self):
         self.html = Tabular(self.output).table_output()
-        self.next(self.join)
-    
+        self.next(self.wrapup)
     
     @card(type='html')
     @step
     def data_map(self):
         self.html = Plot(self.output.dropna(subset=['latitude','longitude'])).render()
-        self.next(self.join)
+        self.next(self.wrapup)
+        
+    @step
+    def data_stats(self):
+        self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
+        self.next(self.wrapup)
     
     @step
-    def join(self, inputs):
+    def wrapup(self, inputs):
         self.output = inputs[0].output
         self.next(self.end)
     

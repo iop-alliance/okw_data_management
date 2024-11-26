@@ -12,7 +12,7 @@ import sqlite3
 from metaflow import FlowSpec, step, card, Parameter
 import pandas as pd
 from __visualisations__ import Plot, Tabular
-from __functions__ import req_data, filter_points_by_proximity
+from __functions__ import req_data, filter_points_by_proximity, ReverseGeocode
 
 
 
@@ -54,42 +54,44 @@ class Source_12(FlowSpec):
         filter_0 = self.raw[~self.raw['country'].isin(['iraq', 'somalia', 'somaliland'])]
         filter_a = pd.concat([filter_0, self.patch], ignore_index=True)
         filter_1 = filter_a[filter_a['name'].str.len() >= 4]
-        filter_2 = filter_1[['name','latitude','longitude']].drop_duplicates(keep='last')
+        filter_1.rename(columns={'social_fb': 'web_url'}, inplace=True)
+        filter_2 = filter_1[['name','latitude','longitude','web_url']].drop_duplicates(keep='last')
         filter_3 = filter_points_by_proximity(filter_2, radius=self.radius_, min_points=self.min_points_)
+        print(self.raw.columns.tolist())
         self.output = filter_2[~filter_2.isin(filter_3).all(axis=1)]
         self.html = Tabular(filter_3).table_output()
-        # self.next(self.transform)
+        self.next(self.transform)
+    
+    @card(type='html')
+    @step
+    def transform(self):
+        self.geocode = ReverseGeocode(self.output).get()
+        self.html = Tabular(self.geocode).table_output()
         self.next(self.visualise)
-    
-    # @step
-    # def transform(self):
-    #     self.next(self.load)
-    
-    # @step
-    # def load(self):        
-    #     self.next(self.data_table, self.data_map)
-    
         
     @step
     def visualise(self):
-        self.next(self.data_table, self.data_map)
+        self.next(self.data_table, self.data_map, self.data_stats)
     
-        
     @card(type='html')
     @step
     def data_table(self):
         self.html = Tabular(self.output).table_output()
-        self.next(self.join)
-    
+        self.next(self.wrapup)
     
     @card(type='html')
     @step
     def data_map(self):
         self.html = Plot(self.output.dropna(subset=['latitude','longitude'])).render()
-        self.next(self.join)
+        self.next(self.wrapup)
+        
+    @step
+    def data_stats(self):
+        self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
+        self.next(self.wrapup)
     
     @step
-    def join(self, inputs):
+    def wrapup(self, inputs):
         self.output = inputs[0].output
         self.next(self.end)
     

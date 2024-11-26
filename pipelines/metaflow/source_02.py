@@ -12,6 +12,7 @@ from metaflow import FlowSpec, step, card, Parameter
 import pandas as pd
 from __visualisations__ import Plot, Tabular
 from okw_libs.dwld import req_data
+from __functions__ import ReverseGeocode
 
 
 
@@ -25,6 +26,7 @@ class Source_02(FlowSpec):
     def start(self):
         print(self.__class__.__name__)
         self.next(self.extract)
+        
     @card(type='html')
     @step
     def extract(self):
@@ -42,6 +44,7 @@ class Source_02(FlowSpec):
         self.cleaned = filter_10.drop_duplicates(subset=['name'], keep='last')
         self.next(self.transform)
     
+    @card(type='html')
     @step
     def transform(self):
         self.cleaned['record_source_url'] = 'https://www.fablabs.io/labs/' + self.cleaned.slug
@@ -49,13 +52,14 @@ class Source_02(FlowSpec):
         # Directly access the first element of the 'links' list, and check for the 'url' key
         self.cleaned['web_url'] = self.cleaned['links'].apply(lambda x: x[0]['url'] if isinstance(x, list) and len(x) > 0 else None)
         self.output = self.cleaned[['name', 'latitude', 'longitude','record_source_url','web_url']]
+        self.geocode = ReverseGeocode(self.output).get()
+        self.html = Tabular(self.geocode).table_output()
         self.next(self.visualise)
     
     # @step
     # def load(self):        
     #     self.next(self.data_table, self.data_map)
-    
-        
+       
     @step
     def visualise(self):
         self.next(self.data_table, self.data_map, self.data_stats)
@@ -73,9 +77,9 @@ class Source_02(FlowSpec):
         self.html = Plot(self.output).render()
         self.next(self.wrapup)
         
-    @card(type='html')
     @step
     def data_stats(self):
+        self.count = "OKW entries: {r[0]}, columns: {r[1]}, info: {c}".format(r=self.output.shape, c=self.output.columns.tolist())
         self.next(self.wrapup)
     
     @step
